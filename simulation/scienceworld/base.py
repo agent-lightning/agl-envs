@@ -5,7 +5,7 @@ from abc import ABC
 
 import numpy as np
 from agl_envs.simulation.utils import extract_pure_action, extract_reasoning
-from agl_envs.simulation.scienceworld import ScienceWorldEnv
+from scienceworld import ScienceWorldEnv
 
 logger = logging.getLogger("agent_frame")
 
@@ -29,12 +29,6 @@ class SciWorldEnv(ABC):
         self.max_steps_dict = json.load(open("agl_envs/simulation/task_data/scienceworld/split_sets/max_steps.json"))
         self.max_steps = self.max_steps_dict[sub_task_name]
 
-    def textworld_process_obsv(self, textworld_obsv):
-        return {
-            "text": textworld_obsv,
-            "image": None,
-        }
-
     def extract_action(self, llm_output, use_reasoning):
         llm_output = llm_output.lower()
         if use_reasoning:
@@ -47,6 +41,7 @@ class SciWorldEnv(ABC):
             action_valid = True
 
         is_valid = action_valid and (not use_reasoning or reasoning_valid)
+        
         # check if contains any Chinese characters
         if re.search(r"[\u4e00-\u9fff]", llm_output):
             is_valid = False
@@ -80,17 +75,17 @@ class SciWorldEnv(ABC):
         if self.step_count >= self.max_steps:
             done = True
         self.step_count += 1
-        return self.textworld_process_obsv(observation), reward, done, None, info
+        return observation, reward, done, None, info
 
     def reset(self):
-        obs, info = self.env.reset()
+        observation, info = self.env.reset()
 
         self.available_actions = info["valid"]
 
         valid_actions = self.env.get_possible_actions()
         valid_objs = self.env.get_possible_objects()
         self.available_actions_hint = f"Valid_actions: {valid_actions}, OBJ needs to be replaced with one of the following objects: {valid_objs}\n example: focus on door"
-        return self.textworld_process_obsv(obs), info
+        return observation, info
 
     def get_success_score(self):
         return 1.0 if self.success else 0.0

@@ -7,7 +7,7 @@ from alfworld.agents.environment.alfred_tw_env import AlfredTWEnv
 from agl_envs.simulation.alfworld.base import AlfWorldEnv
 
 
-def make_alfworld_env(env_name, task, config, render_mode: Optional[str] = None):
+def make_alfworld_env(env_name, task, config):
     os.environ["ALFWORLD_DATA"] = "agl_envs/simulation/alfworld/alfworld_source"
 
     alfworld_data_path = os.environ.get("ALFWORLD_DATA")

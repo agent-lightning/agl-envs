@@ -1,20 +1,11 @@
 class EnvironmentManager:
 
-    def __init__(self, env_name, config, env_fn, prompt_builder):
+    def __init__(self, env_name, config, env_fn):
         self.config = config
         self.env = env_fn()  # Initialize the environment
-        self.prompt_builder = prompt_builder
         self.env_name = env_name
-        self.image = None  # Cached image for rendering
-        self.obs_type = self.config.captioner.obs_type
 
         self.mission = None
-
-    def get_mission(self, env_obs, info):
-        if self.env_name == "scienceworld":
-            self.mission = info["taskDesc"].split("Task Description:\n")[-1]
-        if self.env_name == "alfworld":
-            self.mission = env_obs["text"].split("Your task is to: ")[-1]
 
     def get_instruction_prompt(self, info=None):
         env_map = {
@@ -41,9 +32,9 @@ class EnvironmentManager:
             return get_single_obs_template(self.mission)
 
     def get_obs(self):
-        if self.obs_type == "chat":
+        if self.prompt_type == "chat":
             obs = self.prompt_builder.get_chat_prompt()
-        elif self.obs_type == "single":
+        elif self.prompt_type == "single":
             obs = self.prompt_builder.get_single_prompt()
         return obs
 
@@ -54,61 +45,31 @@ class EnvironmentManager:
         reasoning, executed_action, is_valid, metrics = self.env.extract_action(llm_output, use_reasoning)
         env_obs, reward, terminated, truncated, info = self.env.step(executed_action)
 
+        available_actions_hint = self.env.available_actions_hint
+
         if use_success_rate:
             reward = self.get_success_score()
 
-        self.image = env_obs.get("image", None)
-
-        self.prompt_builder.update_step_count()
-        self.prompt_builder.update_reasoning(reasoning)
-        self.prompt_builder.update_action(executed_action)
-        self.prompt_builder.update_observation(env_obs)
-        if hasattr(self.env, "available_actions_hint"):
-            self.prompt_builder.update_admissible_actions(self.env.available_actions_hint)
-
         info["metrics"] = metrics
 
-        if self.obs_type == "chat":
-            obs = self.prompt_builder.get_chat_prompt()
-        elif self.obs_type == "single":
-            obs = self.prompt_builder.get_single_prompt()
+        return env_obs, executed_action, is_valid, reward, terminated, truncated, info, available_actions_hint
 
-        pure_env_obs = self.prompt_builder.get_pure_env_obs(env_obs)
+    def get_mission(self, env_obs, info):
+        if self.env_name == "scienceworld":
+            mission = info["taskDesc"].split("Task Description:\n")[-1]
+        if self.env_name == "alfworld":
+            mission = env_obs.split("Your task is to: ")[-1]
 
-        return obs, pure_env_obs, executed_action, is_valid, reward, terminated, truncated, info
+        return mission
 
     def reset(self):
-        # Reset both the environment and the captioner
-        self.prompt_builder.reset()
         env_obs, info = self.env.reset()
-        self.image = env_obs.get("image", None)
 
-        self.get_mission(env_obs, info)
+        self.mission = self.get_mission(env_obs, info)
 
-        if self.obs_type == "chat":
-            inst_prompt = self.get_instruction_prompt(info)
-            self.prompt_builder.update_instruction_prompt(inst_prompt)
-        elif self.obs_type == "single":
-            template_wo_his, template = self.get_single_obs_template()
-            self.prompt_builder.update_single_obs_template(template_wo_his, template)
-        else:
-            raise ValueError(f"Unsupported obs_type: {self.obs_type}")
+        available_actions_hint = self.env.available_actions_hint
 
-        self.prompt_builder.update_observation(env_obs)
-        if hasattr(self.env, "available_actions"):
-            self.prompt_builder.update_admissible_actions(self.env.available_actions_hint)
-
-        if self.obs_type == "chat":
-            obs = self.prompt_builder.get_chat_prompt()
-        elif self.obs_type == "single":
-            obs = self.prompt_builder.get_single_prompt()
-
-        pure_env_obs = self.prompt_builder.get_pure_env_obs(env_obs)
-
-        return obs, pure_env_obs, info
-
-    def render(self):
-        return self.image
+        return env_obs, info, available_actions_hint
 
     def close(self):
         self.env.close()

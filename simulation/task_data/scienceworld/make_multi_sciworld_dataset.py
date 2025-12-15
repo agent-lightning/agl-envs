@@ -6,15 +6,15 @@ import pandas as pd
 # unseen variants seen tasks
 
 with open(
-    "examples/simulation/task_data/scienceworld/split_sets/variations_idx/seen_variants_seen_tasks.json", "r"
+    "agl-envs/simulation/task_data/scienceworld/split_sets/variations_idx/seen_variants_seen_tasks.json", "r"
 ) as f:
     data = json.load(f)
-with open("examples/simulation/task_data/scienceworld/split_sets/id2taskname.json", "r") as f:
+with open("agl-envs/simulation/task_data/scienceworld/split_sets/id2taskname.json", "r") as f:
     id2taskname = json.load(f)
 
 train_list = [[id2taskname.get(str(pair[0]), None), pair[1], 30] for pair in data["train"]]
 df = pd.DataFrame(train_list, columns=["sub_task_name", "variation_idx", "max_steps"])
-df.to_parquet("examples/simulation/task_data/scienceworld/multi_data/train.parquet", engine="pyarrow", index=False)
+df.to_parquet("agl-envs/simulation/task_data/scienceworld/multi_data/train.parquet", engine="pyarrow", index=False)
 
 print("Parquet file saved: train.parquet")
 
@@ -32,6 +32,6 @@ for key in result:
 test_list = [[id2taskname.get(str(pair[0]), None), pair[1], 30] for pair in test_id_list]
 
 df = pd.DataFrame(test_list, columns=["sub_task_name", "variation_idx", "max_steps"])
-df.to_parquet("examples/simulation/task_data/scienceworld/multi_data/test.parquet", engine="pyarrow", index=False)
+df.to_parquet("agl-envs/simulation/task_data/scienceworld/multi_data/test.parquet", engine="pyarrow", index=False)
 
 print("Parquet file saved: test.parquet")

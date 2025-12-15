@@ -1,7 +1,7 @@
 from typing import Optional
 
 from agl_envs.simulation.scienceworld.base import SciWorldEnv
-from agl_envs.simulation.scienceworld import ScienceWorldEnv
+from scienceworld import ScienceWorldEnv
 
 
 def build_simplification_str(args):

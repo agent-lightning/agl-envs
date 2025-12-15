@@ -12,7 +12,6 @@ def process_ob(ob):
         ob = ob[ob.find(". ") + 2 :]
     return ob
 
-
 class AlfWorldEnv(ABC):
     def __init__(self, env, **kwargs):
         self.env = env
@@ -20,12 +19,6 @@ class AlfWorldEnv(ABC):
         self.step_count = 0
 
         self.success = False
-
-    def textworld_process_obsv(self, textworld_obsv):
-        return {
-            "text": textworld_obsv,
-            "image": None,
-        }
 
     def extract_action(self, llm_output, use_reasoning):
         llm_output = llm_output.lower()
@@ -37,8 +30,6 @@ class AlfWorldEnv(ABC):
             reasoning_valid = None
             action = llm_output
             action_valid = True
-
-        # action_valid = action_valid and action in self.available_actions
 
         is_valid = action_valid and (not use_reasoning or reasoning_valid)
         # check if contains any Chinese characters
@@ -63,15 +54,15 @@ class AlfWorldEnv(ABC):
         if self.step_count >= self.max_steps:
             done = True
         self.step_count += 1
-        return self.textworld_process_obsv(observation), reward, done, None, info
+        return observation, reward, done, None, info
 
     def reset(self):
-        obs, info = self.env.reset()
+        observation, info = self.env.reset()
         self.available_actions = info["admissible_commands"][0]
         self.available_actions_hint = "\n ".join(f"'{s}'" for s in info["admissible_commands"][0] if s != "help")
 
-        obs = "\n".join(obs[0].split("\n\n")[1:])
-        return self.textworld_process_obsv(obs), info
+        observation = "\n".join(observation[0].split("\n\n")[1:])
+        return observation, info
 
     def get_success_score(self):
         return 1.0 if self.success else 0.0
