@@ -22,8 +22,6 @@ This directory contains simulation environments and training datasets for reinfo
 
 Set up the required environments and dependencies for each environment using the provided scripts.
 
----
-
 ### ALFWorld
 
 ```bash
@@ -52,7 +50,6 @@ bash setup/setup_sciworld.sh
 You can either use the **provided datasets** or create **custom datasets** by modifying the dataset generation scripts.  
 All datasets are located under the `task_data/` directory.
 
----
 
 ### ALFWorld
 
@@ -65,13 +62,14 @@ All datasets are located under the `task_data/` directory.
 
 ---
 
+
 ### ScienceWorld
 
 We provide two types of datasets for ScienceWorld: **single-task** and **multi-task**.
 
 #### 1. Single-Task Dataset
 
-Each task has its own dataset.
+Each task has its own dataset. To identify which task corresponds to a given task_num, please refer to `task_data/scienceworld/split_Sets/id2taskname.json.`
 
 #### Using the Provided Dataset
 - Training set: `task_data/scienceworld/single_data/{task_num}/train.parquet`
@@ -80,7 +78,8 @@ Each task has its own dataset.
 #### Creating a Custom Dataset
 - Modify the following script: `task_data/scienceworld/make_single_sciworld_dataset.py`
 
----
+&nbsp;
+
 #### 2. Multi-Task Dataset
 
 This dataset combines multiple ScienceWorld tasks into a single dataset.
