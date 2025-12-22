@@ -4,7 +4,7 @@ def get_instruction_prompt(env, mission):
     return instruction_prompt
 
 
-def get_single_obs_template(mission):
+def get_single_prompt_template(mission):
     template_wo_his = f"""
 You are an expert agent operating in the ALFRED Embodied Environment.
 Your current observation is: {{current_observation}}

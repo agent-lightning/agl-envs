@@ -7,9 +7,9 @@ class EnvironmentManager:
 
         self.mission = None
 
-    def get_instruction_prompt(self, info=None):
+    def get_instruction_prompt(self):
         env_map = {
-            "scienceworld": ("envs.scienceworld", {"env": self.env, "mission": self.mission}),
+            "scienceworld": ("agl_envs.simulation.scienceworld", {"env": self.env, "mission": self.mission}),
         }
 
         if self.env_name not in env_map:
@@ -20,23 +20,16 @@ class EnvironmentManager:
         get_prompt = getattr(module, "get_instruction_prompt")
         return get_prompt(**kwargs)
 
-    def get_single_obs_template(self):
+    def get_single_prompt_template(self):
         if self.env_name == "scienceworld":
-            from agl_envs.simulation.scienceworld import get_single_obs_template
+            from agl_envs.simulation.scienceworld import get_single_prompt_template
 
-            return get_single_obs_template(self.mission)
+            return get_single_prompt_template(self.mission)
 
         elif self.env_name == "alfworld":
-            from agl_envs.simulation.alfworld import get_single_obs_template
+            from agl_envs.simulation.alfworld import get_single_prompt_template
 
-            return get_single_obs_template(self.mission)
-
-    def get_obs(self):
-        if self.prompt_type == "chat":
-            obs = self.prompt_builder.get_chat_prompt()
-        elif self.prompt_type == "single":
-            obs = self.prompt_builder.get_single_prompt()
-        return obs
+            return get_single_prompt_template(self.mission)
 
     def get_success_score(self):
         return self.env.get_success_score()

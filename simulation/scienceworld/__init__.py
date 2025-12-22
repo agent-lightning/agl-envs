@@ -62,7 +62,7 @@ You could try to explore different actions, especially when you are not sure wha
     return instruction_prompt
 
 
-def get_single_obs_template(mission):
+def get_single_prompt_template(mission):
     template_wo_his = f"""
 You are an expert agent operating in the ScienceWorld environment, which is a text-based virtual environment centered around accomplishing tasks from the elementary science curriculum.
 Your current task is: {mission}
