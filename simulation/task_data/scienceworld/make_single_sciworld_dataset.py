@@ -1,10 +1,24 @@
-import json
 import os
-
+import random
 import pandas as pd
-from agl_envs.simulation.scienceworld import ScienceWorldEnv
+from scienceworld import ScienceWorldEnv
 
-total_task_list = [
+
+OUTPUT_ROOT = "agl_envs/simulation/task_data/scienceworld/single_data"
+
+NUM_TRAIN_VARS = 5
+NUM_TEST_VARS = 20
+TRAIN_REPEAT = 64
+TEST_REPEAT = 4
+SEED = 42
+
+SIMPLIFICATION = "easy"
+ENV_STEP_LIMIT = 100
+JAR_PATH = None
+
+random.seed(SEED)
+
+TOTAL_TASK_LIST = [
     "boil",
     "change-the-state-of-matter-of",
     "chemistry-mix",
@@ -37,91 +51,52 @@ total_task_list = [
     "use-thermometer",
 ]
 
-
-def build_simplification_str(args):
-    simplifications = list()
-    if args["teleport"]:
-        simplifications.append("teleportAction")
-    if args["self_watering_plants"]:
-        simplifications.append("selfWateringFlowerPots")
-    if args["open_containers"]:
-        simplifications.append("openContainers")
-    if args["open_doors"]:
-        simplifications.append("openDoors")
-    if args["no_electrical"]:
-        simplifications.append("noElectricalAction")
-    return args["simplifications_preset"] or ",".join(simplifications)
+env = ScienceWorldEnv(
+    "",
+    serverPath=JAR_PATH,
+    envStepLimit=ENV_STEP_LIMIT,
+)
 
 
-def parse_args():
-    from types import SimpleNamespace
+for task_idx, task_name in enumerate(TOTAL_TASK_LIST):
+    print(f"\n=== Task {task_idx}: {task_name} ===")
 
-    args = SimpleNamespace(
-        jar_path=None,
-        task_num=0,  # 7
-        var_num=0,
-        env_step_limit=100,
-        num_episodes=5,
-        seed=None,
-        output_path_prefix="save-histories",
-        max_episode_per_file=1000,
-        simplifications_preset="easy",
-        teleport=False,
-        self_watering_plants=False,
-        open_containers=True,
-        open_doors=True,
-        no_electrical=False,
-    )
-    params = vars(args)
-    return params
-
-
-env_args = parse_args()
-env = ScienceWorldEnv("", serverPath=env_args["jar_path"], envStepLimit=env_args["env_step_limit"])
-results = []
-
-for taskidx, task_name in enumerate(total_task_list):
-    print(f"\n=== Task {taskidx}: {task_name} ===")
     try:
-        env.load(task_name, 0, build_simplification_str(env_args))
-        train_list = env.get_variations_train()
-        test_list = env.get_variations_test()
+        env.load(task_name, 0, SIMPLIFICATION)
+        train_variations = env.get_variations_train()
+        test_variations = env.get_variations_test()
     except Exception as e:
         print(f"⚠️ Failed to load {task_name}: {e}")
         continue
 
-    task_entry = {"task": task_name, "count": len(train_list), "variations": []}
+    if not train_variations or not test_variations:
+        print(f"⚠️ No variations for {task_name}")
+        continue
 
-    for var in train_list:
-        try:
-            env.load(task_name, var, build_simplification_str(env_args))
-            obs, info = env.reset()
-            task_desp = info["taskDesc"]
-            print(f"[Variation {var}] {task_desp}")
+    train_vars = train_variations[:NUM_TRAIN_VARS]
+    test_vars = test_variations[:NUM_TEST_VARS]
 
-            task_entry["variations"].append({"variation": var, "description": task_desp})
+    out_dir = os.path.join(OUTPUT_ROOT, str(task_idx))
+    os.makedirs(out_dir, exist_ok=True)
 
-        except Exception as e:
-            print(f"  ⚠️ Variation {var} failed: {e}")
+    # Train parquet
+    train_df = pd.DataFrame(
+        [[task_name, v] for v in train_vars] * TRAIN_REPEAT,
+        columns=["sub_task_name", "variation_idx"],
+    )
+    train_df.to_parquet(
+        os.path.join(out_dir, "train.parquet"),
+        index=False,
+    )
 
-    results.append(task_entry)
+    # Test parquet
+    test_df = pd.DataFrame(
+        [[task_name, v] for v in test_vars] * TEST_REPEAT,
+        columns=["sub_task_name", "variation_idx"],
+    )
+    test_df.to_parquet(
+        os.path.join(out_dir, "test.parquet"),
+        index=False,
+    )
 
-    # Save per-task parquet file
-    output_dir = f"agl_envs/task_data/scienceworld/single_data/{taskidx}"
-    os.makedirs(output_dir, exist_ok=True)
-
-    train_data = [[task_name, var] for var in train_list[:5]] * 64
-    df = pd.DataFrame(train_data, columns=["sub_task_name", "variation_idx"])
-    df.to_parquet(os.path.join(output_dir, "train.parquet"), engine="pyarrow", index=False)
-
-    eval_data = [[task_name, var] for var in test_list[:20]]
-    df = pd.DataFrame(eval_data, columns=["sub_task_name", "variation_idx"])
-    df.to_parquet(os.path.join(output_dir, "test.parquet"), engine="pyarrow", index=False)
-
-# Save summary JSON
-output_path = "agl_envs/task_data/scienceworld/single_data/scienceworld_tasks.json"
-os.makedirs(os.path.dirname(output_path), exist_ok=True)
-with open(output_path, "w", encoding="utf-8") as f:
-    json.dump(results, f, ensure_ascii=False, indent=2)
-
-print(f"\n✅ All task info saved to: {output_path}")
+    print(f"✔ {task_name} done")

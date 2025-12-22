@@ -1,8 +1,7 @@
 [
   {
     "task": "boil",
-    "count": 14,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to boil water. For compounds without a boiling point, combusting the substance is also acceptable. First, focus on the substance. Then, take actions that will cause it to change its state of matter."
@@ -63,8 +62,7 @@
   },
   {
     "task": "change-the-state-of-matter-of",
-    "count": 14,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to change the state of matter of water. First, focus on the substance. Then, take actions that will cause it to change its state of matter."
@@ -125,8 +123,7 @@
   },
   {
     "task": "chemistry-mix",
-    "count": 16,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to use chemistry to create the substance 'salt water'. A recipe and some of the ingredients might be found near the kitchen. When you are done, focus on the salt water."
@@ -195,8 +192,7 @@
   },
   {
     "task": "chemistry-mix-paint-secondary-color",
-    "count": 18,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to use chemistry to create green paint. When you are done, focus on the green paint."
@@ -273,8 +269,7 @@
   },
   {
     "task": "chemistry-mix-paint-tertiary-color",
-    "count": 18,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to use chemistry to create green-blue paint. When you are part-way done, focus on the intermediate (secondary color) paint you created.  When you are completely done, focus on the green paint."
@@ -351,8 +346,7 @@
   },
   {
     "task": "find-animal",
-    "count": 150,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to find a(n) animal. First, focus on the thing. Then, move it to the red box in the kitchen."
@@ -957,8 +951,7 @@
   },
   {
     "task": "find-living-thing",
-    "count": 150,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to find a(n) living thing. First, focus on the thing. Then, move it to the red box in the kitchen."
@@ -1563,8 +1556,7 @@
   },
   {
     "task": "find-non-living-thing",
-    "count": 150,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to find a(n) non-living thing. First, focus on the thing. Then, move it to the red box in the kitchen."
@@ -2169,8 +2161,7 @@
   },
   {
     "task": "find-plant",
-    "count": 150,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to find a(n) plant. First, focus on the thing. Then, move it to the red box in the kitchen."
@@ -2775,8 +2766,7 @@
   },
   {
     "task": "freeze",
-    "count": 14,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to freeze water. First, focus on the substance. Then, take actions that will cause it to change its state of matter."
@@ -2837,8 +2827,7 @@
   },
   {
     "task": "grow-fruit",
-    "count": 62,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to grow a apple. This will require growing several plants, and them being crosspollinated to produce fruit.  Seeds can be found in the kitchen. To complete the task, focus on the grown apple."
@@ -3091,8 +3080,7 @@
   },
   {
     "task": "grow-plant",
-    "count": 62,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to grow a apple plant from seed. Seeds can be found in the kitchen. First, focus on a seed. Then, make changes to the environment that grow the plant until it reaches the reproduction life stage."
@@ -3345,8 +3333,7 @@
   },
   {
     "task": "identify-life-stages-1",
-    "count": 6,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to focus on the 4 life stages of the turtle, starting from earliest to latest."
@@ -3375,8 +3362,7 @@
   },
   {
     "task": "identify-life-stages-2",
-    "count": 4,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to focus on the life stages of the apple plant, starting from earliest to latest. The plants are located outside."
@@ -3397,8 +3383,7 @@
   },
   {
     "task": "inclined-plane-determine-angle",
-    "count": 84,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to determine which of the two inclined planes (C, B) has the shallowest angle. After completing your experiment, focus on the inclined plane with the shallowest angle."
@@ -3739,8 +3724,7 @@
   },
   {
     "task": "inclined-plane-friction-named-surfaces",
-    "count": 692,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to determine which of the two inclined planes (paper, cloth) has the most friction. After completing your experiment, focus on the inclined plane with the most friction."
@@ -6513,8 +6497,7 @@
   },
   {
     "task": "inclined-plane-friction-unnamed-surfaces",
-    "count": 80,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to determine which of the two inclined planes (unknown material C, unknown material H) has the most friction. After completing your experiment, focus on the inclined plane with the most friction."
@@ -6839,8 +6822,7 @@
   },
   {
     "task": "lifespan-longest-lived",
-    "count": 62,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to find the animal with the longest life span.  The animals are in the 'outside' location.  Focus on the animal with the longest life span."
@@ -7093,8 +7075,7 @@
   },
   {
     "task": "lifespan-longest-lived-then-shortest-lived",
-    "count": 62,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to find the animal with the longest life span, then the shortest life span. First, focus on the animal with the longest life span.  Then, focus on the animal with the shortest life span. The animals are in the 'outside' location."
@@ -7347,8 +7328,7 @@
   },
   {
     "task": "lifespan-shortest-lived",
-    "count": 62,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to find the animal with the shortest life span.  The animals are in the 'outside' location.  Focus on the animal with the shortest life span."
@@ -7601,8 +7581,7 @@
   },
   {
     "task": "measure-melting-point-known-substance",
-    "count": 218,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to measure the melting point of chocolate, which is located around the kitchen. First, focus on the thermometer. Next, focus on the chocolate. If the melting point of chocolate is above -10.0 degrees celsius, focus on the blue box. If the melting point of chocolate is below -10.0 degrees celsius, focus on the orange box. The boxes are located around the kitchen."
@@ -8479,8 +8458,7 @@
   },
   {
     "task": "measure-melting-point-unknown-substance",
-    "count": 150,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to measure the melting point of solid unknown substance C, which is located around the kitchen. First, focus on the thermometer. Next, focus on the solid unknown substance C. If the melting point of solid unknown substance C is above 150.0 degrees celsius, focus on the orange box. If the melting point of solid unknown substance C is below 150.0 degrees celsius, focus on the yellow box. The boxes are located around the kitchen."
@@ -9085,8 +9063,7 @@
   },
   {
     "task": "melt",
-    "count": 14,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to melt water. First, focus on the substance. Then, take actions that will cause it to change its state of matter."
@@ -9147,8 +9124,7 @@
   },
   {
     "task": "mendelian-genetics-known-plant",
-    "count": 60,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to determine whether tall plant height is a dominant or recessive trait in the pea plant. If the trait is dominant, focus on the red box. If the trait is recessive, focus on the green box."
@@ -9393,8 +9369,7 @@
   },
   {
     "task": "mendelian-genetics-unknown-plant",
-    "count": 240,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to determine whether blue seed color is a dominant or recessive trait in the unknown E plant. If the trait is dominant, focus on the red box. If the trait is recessive, focus on the green box."
@@ -10359,8 +10334,7 @@
   },
   {
     "task": "power-component",
-    "count": 10,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to turn on the red light bulb. First, focus on the red light bulb. Then, create an electrical circuit that powers it on."
@@ -10405,8 +10379,7 @@
   },
   {
     "task": "power-component-renewable-vs-nonrenewable-energy",
-    "count": 10,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to turn on the red light bulb by powering it using a renewable power source. First, focus on the red light bulb. Then, create an electrical circuit that powers it on."
@@ -10451,8 +10424,7 @@
   },
   {
     "task": "test-conductivity",
-    "count": 450,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to determine if aluminum foil is electrically conductive. The aluminum foil is located around the workshop. First, focus on the aluminum foil. If it is electrically conductive, place it in the red box. If it is electrically nonconductive, place it in the green box."
@@ -12257,8 +12229,7 @@
   },
   {
     "task": "test-conductivity-of-unknown-substances",
-    "count": 300,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to determine if unknown substance B is electrically conductive. The unknown substance B is located around the workshop. First, focus on the unknown substance B. If it is electrically conductive, place it in the red box. If it is electrically nonconductive, place it in the green box."
@@ -13463,8 +13434,7 @@
   },
   {
     "task": "use-thermometer",
-    "count": 270,
-    "variations": [
+    "train_variations": [
       {
         "variation": 0,
         "description": "Task Description:\nYour task is to measure the temperature of unknown substance B, which is located around the living room. First, focus on the thermometer. Next, focus on the unknown substance B. If the unknown substance B temperature is above 100.0 degrees celsius, place it in the red box. If the unknown substance B temperature is below 100.0 degrees celsius, place it in the green box. The boxes are located around the bathroom."
