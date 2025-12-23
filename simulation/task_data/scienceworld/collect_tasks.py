@@ -1,5 +1,6 @@
 import json
 import os
+
 from scienceworld import ScienceWorldEnv
 
 TOTAL_TASK_LIST = [

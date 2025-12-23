@@ -1,8 +1,8 @@
 import os
 import random
+
 import pandas as pd
 from scienceworld import ScienceWorldEnv
-
 
 OUTPUT_ROOT = "agl_envs/simulation/task_data/scienceworld/single_data"
 

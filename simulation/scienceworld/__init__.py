@@ -2,6 +2,7 @@ import re
 
 from agl_envs.simulation.scienceworld.examples import example_prompts
 
+
 def get_available_action_description():
     all_possible_actions = [
         "open OBJ",

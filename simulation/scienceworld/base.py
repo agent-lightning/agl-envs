@@ -4,8 +4,9 @@ import re
 from abc import ABC
 
 import numpy as np
-from agl_envs.simulation.utils import extract_pure_action, extract_reasoning
 from scienceworld import ScienceWorldEnv
+
+from agl_envs.simulation.utils import extract_pure_action, extract_reasoning
 
 logger = logging.getLogger("agent_frame")
 

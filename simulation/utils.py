@@ -1,5 +1,6 @@
 import re
 
+
 def extract_pure_action(llm_output):
     match = re.search(r"<[Aa]ction>(.*?)</[Aa]ction>", llm_output, re.DOTALL)
     if match:
