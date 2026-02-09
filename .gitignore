@@ -215,6 +215,6 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-simulation/alfworld/alfworld_source/**
-!simulation/alfworld/alfworld_source/**/
-!simulation/alfworld/alfworld_source/base_config.yaml
+alfworld/alfworld_source/**
+!alfworld/alfworld_source/**/
+!alfworld/alfworld_source/base_config.yaml
